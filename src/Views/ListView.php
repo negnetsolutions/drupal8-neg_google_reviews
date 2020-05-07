@@ -44,7 +44,6 @@ class ListView {
       '#reviews' => $reviews,
       '#url' => $url,
       '#cache' => [
-        'contexts' => ['url'],
         'tags' => ['google_reviews'],
       ],
     ];
