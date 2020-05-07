@@ -1,0 +1,22 @@
+<ul class="reviews">
+{% for review in reviews %}
+  <li class="review">
+    <span class="date">{{ review.get('relative_time_description') }}</span>
+    <span class="image"><img src="{{ review.get('profile_photo_url') }}" /></span>
+    <span class="name">{{ review.get('author_name') }}</span>
+    <span class="rating">
+      {{ review.get('rating') }}
+      {% for i in 1..review.get('rating') %}
+        <span class="star"></span>
+      {% endfor %}
+    </span>
+    <div class="text">
+      {{ review.get('text') }}
+    </div>
+  </li>
+{% endfor %}
+</ul>
+{% if url|render %}
+
+<a href="{{ url }}" target="_blank">More Reviews</a>
+{% endif %}

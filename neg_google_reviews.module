@@ -1,0 +1,79 @@
+<?php
+
+/**
+ * @file
+ * Google Reviews Module.
+ */
+
+use Drupal\neg_google_reviews\ReviewSettings;
+use Drupal\neg_google_reviews\Views\ListView;
+
+/**
+ * Implements hook_theme().
+ */
+function neg_google_reviews_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__google_reviews_widget' => [
+      'template' => 'paragraph_reviews',
+      'base hook' => 'paragraph',
+    ],
+    'neg_google_reviews_list_view' => [
+      'template' => 'list_view',
+      'variables' => [
+        'reviews' => [],
+        'url' => [],
+      ],
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_paragraph().
+ */
+function neg_google_reviews_preprocess_paragraph(&$variables) {
+  $method = '_neg_google_reviews_process_paragraph_' . $variables['paragraph']->getType();
+
+  if (function_exists($method)) {
+    $method($variables);
+  }
+}
+
+/**
+ * Preproccess Reviews Paragraph.
+ */
+function _neg_google_reviews_process_paragraph_google_reviews_widget(&$variables) {
+  $variables['attributes']['class'][] = 'paragraph';
+  $variables['attributes']['class'][] = 'paragraph-google-reviews';
+
+  $view = new ListView($variables);
+  $view->render();
+}
+
+/**
+ * Implements hook_cron().
+ */
+function neg_google_reviews_cron() {
+
+  $config = \Drupal::config(ReviewSettings::CONFIGNAME);
+  $runtime = time();
+  $cache_lifetime = $config->get('frequency');
+  $last_sync = $config->get('last_sync');
+  $last_sync = ($last_sync === NULL) ? 0 : $last_sync;
+
+  // Check if we need to sync.
+  if (($last_sync + $cache_lifetime) > $runtime) {
+    return;
+  }
+
+  $queue_factory = \Drupal::service('queue');
+  $queue = $queue_factory->get('google_reviews_sync');
+
+  if ($queue->numberOfItems() == 0) {
+    $command = [
+      'op' => 'syncReviews',
+      'placeId' => $config->get('place_id'),
+    ];
+    $queue->createItem($command);
+  }
+
+}

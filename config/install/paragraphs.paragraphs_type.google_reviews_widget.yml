@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: google_reviews_widget
+label: 'Google Reviews Widget'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

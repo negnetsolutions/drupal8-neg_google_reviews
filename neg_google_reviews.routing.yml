@@ -1,0 +1,7 @@
+neg_google_reviews.settings:
+  path: '/admin/config/services/google_reviews'
+  defaults:
+    _form: '\Drupal\neg_google_reviews\Form\ReviewsSettingsForm'
+    _title: 'Google Reviews Settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,9 @@
+{
+  "name": "negnet/neg_google_reviews",
+  "description": "Google Reviews Module",
+  "type": "drupal-module",
+  "license": "GPL-3.0+",
+  "require": {
+    "negnet/neg_paragraphs": "master"
+  }
+}

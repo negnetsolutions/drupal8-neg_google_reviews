@@ -1,0 +1,6 @@
+name: Negnet Solutions Google Reviews
+type: module
+description: "Google Review Aggrigator"
+core: 8.x
+dependencies:
+  - neg_paragraphs
