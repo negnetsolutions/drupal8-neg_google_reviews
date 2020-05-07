@@ -51,6 +51,10 @@ class ReviewsSync {
     $reviews = $result['reviews'];
     $url = $result['url'];
 
+    $this->log('Fetched %c reviews from Google', [
+      '%c' => count($reviews),
+    ], 'notice');
+
     // Set reviews.
     $config->set('reviews', $reviews);
 
