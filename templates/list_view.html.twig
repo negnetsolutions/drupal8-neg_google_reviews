@@ -1,15 +1,16 @@
 <ul class="reviews">
 {% for review in reviews %}
   <li class="review">
-    <span class="date">{{ review.get('relative_time_description') }}</span>
-    <span class="image"><img class="responsive-image lazyload" data-sizes="auto" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ review.get('profile_photo_url') }}" /></span>
-    <span class="name">{{ review.get('author_name') }}</span>
-    <span class="rating">
-      {{ review.get('rating') }}
-      {% for i in 1..review.get('rating') %}
-        <span class="star"></span>
-      {% endfor %}
-    </span>
+    <div class="info">
+      <span class="image"><img class="responsive-image lazyload" data-sizes="auto" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ review.get('profile_photo_url') }}" /></span>
+      <span class="date">{{ review.get('relative_time_description') }}</span>
+      <span class="name">{{ review.get('author_name') }}</span>
+      <span class="rating">
+        {% for i in 1..review.get('rating') %}
+          <span class="star"></span>
+        {% endfor %}
+      </span>
+    </div>
     <div class="text">
       {{ review.get('text') }}
     </div>
