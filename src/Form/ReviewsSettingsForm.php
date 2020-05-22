@@ -86,11 +86,11 @@ class ReviewsSettingsForm extends ConfigFormBase {
       $sync->sync();
     }
     catch (\Exception $e) {
-      drupal_set_message($e->getMessage(), 'error', TRUE);
+      \Drupal::messenger()->addError($e->getMessage(), TRUE);
       return;
     }
 
-    drupal_set_message('Google Reviews Updated.', 'status', TRUE);
+    \Drupal::messenger()->addInfo('Google Reviews Updated.', TRUE);
   }
 
   /**
