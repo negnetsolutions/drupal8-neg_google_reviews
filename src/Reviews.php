@@ -19,8 +19,7 @@ class Reviews {
    * Gets Google reviews.
    */
   public static function getReviews() {
-    $config = \Drupal::config(ReviewSettings::CONFIGNAME);
-    $data = $config->get('reviews');
+    $data = \Drupal::state()->get('neg_google_reviews.reviews', NULL);
 
     $reviews = [];
     foreach ($data as $r) {

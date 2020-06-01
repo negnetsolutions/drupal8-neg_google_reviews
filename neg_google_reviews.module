@@ -57,7 +57,7 @@ function neg_google_reviews_cron() {
   $config = \Drupal::config(ReviewSettings::CONFIGNAME);
   $runtime = time();
   $cache_lifetime = $config->get('frequency');
-  $last_sync = $config->get('last_sync');
+  $last_sync = \Drupal::state()->get('neg_google_reviews.last_sync', 0);
   $last_sync = ($last_sync === NULL) ? 0 : $last_sync;
 
   // Check if we need to sync.

@@ -63,7 +63,7 @@ class ReviewsSettingsForm extends ConfigFormBase {
     ];
 
     $form['last_sync'] = [
-      '#markup' => '<p>Last Sync: ' . date('r', $config->get('last_sync')) . '</p>',
+      '#markup' => '<p>Last Sync: ' . date('r', \Drupal::state()->get('neg_google_reviews.last_sync', 0)) . '</p>',
     ];
 
     $form['force_sync'] = [
@@ -79,6 +79,13 @@ class ReviewsSettingsForm extends ConfigFormBase {
    * Forces a resync.
    */
   public function forceSync(array &$form, FormStateInterface $form_state) {
+
+    // Retrieve the configuration.
+    $config = $this->configFactory->getEditable(ReviewSettings::CONFIGNAME);
+    $config->clear('reviews');
+    $config->clear('last_sync');
+    $config->save();
+
     $config = $this->config(ReviewSettings::CONFIGNAME);
     $sync = new ReviewsSync($config->get('place_id'));
 
@@ -90,7 +97,7 @@ class ReviewsSettingsForm extends ConfigFormBase {
       return;
     }
 
-    \Drupal::messenger()->addInfo('Google Reviews Updated.', TRUE);
+    \Drupal::messenger()->addStatus('Google Reviews Updated.', TRUE);
   }
 
   /**

@@ -51,18 +51,18 @@ class ReviewsSync {
     $reviews = $result['reviews'];
     $url = $result['url'];
 
+    // Set reviews.
+    $data = \Drupal::state()->set('neg_google_reviews.reviews', $reviews);
+
     $this->log('Fetched %c reviews from Google', [
       '%c' => count($reviews),
     ], 'notice');
-
-    // Set reviews.
-    $config->set('reviews', $reviews);
 
     // Set url to google listing.
     $config->set('url', $url);
 
     // Set last_full_sync.
-    $config->set('last_sync', time());
+    \Drupal::state()->set('neg_google_reviews.last_sync', time());
 
     $config->save();
 
