@@ -2,7 +2,7 @@
 {% for review in reviews %}
   <div class="review">
     <div class="info">
-      <span class="image"><img class="responsive-image lazyload" data-sizes="auto" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ review.get('profile_photo_url') }}" /></span>
+      <span class="image"><img class="responsive-image lazyload" aria-hidden="true" alt="user thumbnail" data-sizes="auto" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ review.get('profile_photo_url') }}" /></span>
       <span class="date">{{ review.get('relative_time_description') }}</span>
       <span class="name">{{ review.get('author_name') }}</span>
       <span class="rating">
